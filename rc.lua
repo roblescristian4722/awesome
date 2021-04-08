@@ -163,7 +163,7 @@ vicious.register(cpuwidget, vicious.widgets.cpu, "$1", 3)
 -- net (vicious)
 netwidget = wibox.widget.textbox()
 vicious.cache(vicious.widgets.net)
-vicious.register(netwidget, vicious.widgets.net, "enp4s0 ${enp4s0 down_kb}kb ↓ ${enp4s0 up_kb}kb ↑", 3)
+vicious.register(netwidget, vicious.widgets.net, "wlo1 ${wlo1 down_kb}kb ↓ ${wlo1 up_kb}kb ↑ | lo ${lo down_kb}kb ↓ ${lo up_kb}kb ↑", 3)
 
 -- Separator
 separator = wibox.widget {
