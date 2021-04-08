@@ -66,7 +66,7 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
-beautiful.wallpaper = "/mnt/HDD/Wallpapers/blade.runner-1920-874022.jpg"
+beautiful.wallpaper = "/mnt/HDD/Wallpapers/93239.jpg"
 beautiful.font = "FontAwesome 9"
 
 -- This is used later as the default terminal and editor to run.
@@ -84,11 +84,11 @@ modkey = "Mod4"
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
     awful.layout.suit.tile,
+    awful.layout.suit.tile.bottom,
     awful.layout.suit.floating,
-    awful.layout.suit.max,
     awful.layout.suit.magnifier,
+    --awful.layout.suit.max,
     --awful.layout.suit.tile.left,
-    --awful.layout.suit.tile.bottom,
     --awful.layout.suit.tile.top,
     --awful.layout.suit.fair,
     --awful.layout.suit.fair.horizontal,
@@ -96,9 +96,9 @@ awful.layout.layouts = {
     --awful.layout.suit.spiral.dwindle,
     --awful.layout.suit.max.fullscreen,
     --awful.layout.suit.corner.nw,
-    -- awful.layout.suit.corner.ne,
-    -- awful.layout.suit.corner.sw,
-    -- awful.layout.suit.corner.se,
+    --awful.layout.suit.corner.ne,
+    --awful.layout.suit.corner.sw,
+    --awful.layout.suit.corner.se,
 }
 -- }}}
 
@@ -133,7 +133,7 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 -- PulseAudio volume (based on multicolor theme)
 local volume = lain.widget.pulse {
     settings = function()
-        vlevel = "Vol: " .. volume_now.channel[1] ..  "%"
+        vlevel = "Vol: " .. volume_now.channel[1] .. "% | " .. volume_now.device
         if volume_now.muted == "yes" then
             vlevel = vlevel .. " Muted"
         end
@@ -175,7 +175,7 @@ vicious.register(cpuwidget, vicious.widgets.cpu, "$1", 3)
 -- net (vicious)
 netwidget = wibox.widget.textbox()
 vicious.cache(vicious.widgets.net)
-vicious.register(netwidget, vicious.widgets.net, "wlo1 ${wlo1 down_kb}kb ↓ ${wlo1 up_kb}kb ↑ | lo ${lo down_kb}kb ↓ ${lo up_kb}kb ↑", 3)
+vicious.register(netwidget, vicious.widgets.net, "enp4s0 ${enp4s0 down_kb}kb ↓ ${enp4s0 up_kb}kb ↑", 3)
 
 -- Separator
 separator = wibox.widget {
@@ -190,7 +190,7 @@ pkgwidget = wibox.widget.textbox()
 vicious.register(pkgwidget, vicious.widgets.pkg, "Updates: $1", 3600, "Arch")
 
 -- playerctl
-player_widget = awful.widget.watch("playerctl metadata --format '{{ artist }} - {{ title }}'", 3,
+player_widget = awful.widget.watch("playerctl metadata --format 'now playing: {{ artist }} - {{ title }}'", 3,
     function(widget, stdout)
 	    widget:set_markup(stdout:gsub("\n", ""))
     	widget.align = "center"
@@ -311,8 +311,6 @@ awful.screen.connect_for_each_screen(function(s)
                     process_info_max_length = 80
                 }),
             separator,
-            batwidget,
-            separator,
             player_widget,
             separator,
             volume,
@@ -356,7 +354,7 @@ globalkeys = gears.table.join(
     -- Sepctacle
     awful.key({}, "Print", function() awful.util.spawn("spectacle") end),
     awful.key({"Control"}, "Print", function() awful.util.spawn("spectacle -c -b -f") end),
-    awful.key({"Mod1", "Shift"}, "s", function() awful.util.spawn("spectacle -c -b -r") end),
+    awful.key({"Shift"}, "Print", function() awful.util.spawn("spectacle -c -b -r") end),
 
     -- nautilus
     awful.key({modkey}, "e", function() awful.util.spawn("nautilus") end),
@@ -386,7 +384,7 @@ globalkeys = gears.table.join(
               {description = "show main menu", group = "awesome"}),
 
     -- Screen Lock
-    awful.key({ modkey, "Shift" }, "l", function () awful.spawn("i3lock -t -i /mnt/HDD/Wallpapers/blade_runner_wallpaper_1.png") end),
+    awful.key({ "Control", "Shift" }, "l", function () awful.spawn("i3lock -t -i /mnt/HDD/Wallpapers/blade_runner_lock.png") end),
 
     -- Layout manipulation
     awful.key({ "Mod1", "Shift"   }, "l", function () awful.client.swap.byidx(  1)    end,
