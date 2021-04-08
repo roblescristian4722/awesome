@@ -133,21 +133,6 @@ mytextclock = wibox.widget {
     widget = wibox.widget.textclock
 }
 
--- power off msg 2
-poweroffmsg2 = wibox.widget{
-    markup = ")",
-    align = "center",
-    valign = "center",
-    widget = wibox.widget.textbox
-}
--- power off msg
-poweroffmsg = wibox.widget{
-    markup = "logout: (",
-    align = "center",
-    valign = "center",
-    widget = wibox.widget.textbox
-}
-
 -- Memory Widget (vicious)
 memwidget = wibox.widget.textbox()
 vicious.cache(vicious.widgets.mem)
@@ -303,9 +288,7 @@ awful.screen.connect_for_each_screen(function(s)
             separator,
             mytextclock,
             separator,
-            poweroffmsg,
             logout_menu_widget(),
-            poweroffmsg2,
             separator,
             s.mylayoutbox,
         },
