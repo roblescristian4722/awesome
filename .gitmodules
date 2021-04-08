@@ -1,0 +1,6 @@
+[submodule "vicious"]
+	path = vicious
+	url = https://github.com/vicious-widgets/vicious
+[submodule "awesome-wm-widgets"]
+	path = awesome-wm-widgets
+	url = https://github.com/streetturtle/awesome-wm-widgets

@@ -133,6 +133,21 @@ mytextclock = wibox.widget {
     widget = wibox.widget.textclock
 }
 
+-- power off msg 2
+poweroffmsg2 = wibox.widget{
+    markup = ")",
+    align = "center",
+    valign = "center",
+    widget = wibox.widget.textbox
+}
+-- power off msg
+poweroffmsg = wibox.widget{
+    markup = "logout: (",
+    align = "center",
+    valign = "center",
+    widget = wibox.widget.textbox
+}
+
 -- Memory Widget (vicious)
 memwidget = wibox.widget.textbox()
 vicious.cache(vicious.widgets.mem)
@@ -157,13 +172,17 @@ vicious.register(netwidget, vicious.widgets.net, "enp4s0 ${enp4s0 down_kb}kb ↓
 separator = wibox.widget {
     widget = wibox.widget.separator,
     orientation = "vertical",
-    opacity = 0.01,
+    opacity = 0.9,
     forced_width = 10
 }
 
 -- pkg (vicious)
 pkgwidget = wibox.widget.textbox()
 vicious.register(pkgwidget, vicious.widgets.pkg, "Updates: $1", 10800, "Arch")
+
+-- volume (vicious)
+volumewidget = wibox.widget.textbox()
+vicious.register(volumewidget, vicious.widgets.volume, "Vol: ${1}", 15, "Master")
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -263,9 +282,11 @@ awful.screen.connect_for_each_screen(function(s)
             s.mytaglist,
             s.mypromptbox,
         },
-        s.mytasklist, -- Middle widget
+            s.mytasklist,
+         -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
+            separator,
             pkgwidget,
             separator,
             netwidget,
@@ -282,9 +303,9 @@ awful.screen.connect_for_each_screen(function(s)
             separator,
             mytextclock,
             separator,
-            wibox.widget.systray(),
-            separator,
+            poweroffmsg,
             logout_menu_widget(),
+            poweroffmsg2,
             separator,
             s.mylayoutbox,
         },
@@ -608,51 +629,6 @@ client.connect_signal("manage", function (c)
         awful.placement.no_offscreen(c)
     end
 end)
-
--- Add a titlebar if titlebars_enabled is set to true in the rules.
---client.connect_signal("request::titlebars", function(c)
---    -- buttons for the titlebar
---    local buttons = gears.table.join(
---        awful.button({ }, 1, function()
---            c:emit_signal("request::activate", "titlebar", {raise = true})
---            awful.mouse.client.move(c)
---        end),
---        awful.button({ }, 3, function()
---            c:emit_signal("request::activate", "titlebar", {raise = true})
---            awful.mouse.client.resize(c)
---        end)
---    )
---
---    awful.titlebar(c) : setup {
---        { -- Left
---            awful.titlebar.widget.iconwidget(c),
---            buttons = buttons,
---            layout  = wibox.layout.fixed.horizontal
---        },
---        { -- Middle
---            { -- Title
---                align  = "center",
---                widget = awful.titlebar.widget.titlewidget(c)
---            },
---            buttons = buttons,
---            layout  = wibox.layout.flex.horizontal
---        },
---        { -- Right
---            awful.titlebar.widget.floatingbutton (c),
---            awful.titlebar.widget.maximizedbutton(c),
---            awful.titlebar.widget.stickybutton   (c),
---            awful.titlebar.widget.ontopbutton    (c),
---            awful.titlebar.widget.closebutton    (c),
---            layout = wibox.layout.fixed.horizontal()
---        },
---        layout = wibox.layout.align.horizontal
---    }
---end)
-
--- Enable sloppy focus, so that focus follows mouse.
---client.connect_signal("mouse::enter", function(c)
---    c:emit_signal("request::activate", "mouse_enter", {raise = false})
---end)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
