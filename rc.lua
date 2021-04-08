@@ -131,7 +131,7 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 -- PulseAudio volume (based on multicolor theme)
 local volume = lain.widget.pulse {
     settings = function()
-        vlevel = "Vol: " .. volume_now.channel[1] ..  "% | " .. volume_now.device
+        vlevel = "Vol: " .. volume_now.channel[1] ..  "%"
         if volume_now.muted == "yes" then
             vlevel = vlevel .. " Muted"
         end
@@ -314,14 +314,11 @@ awful.screen.connect_for_each_screen(function(s)
             separator,
             volume,
             separator,
-            mykeyboardlayout,
-            separator,
             mytextclock,
             separator,
+            mykeyboardlayout,
             wibox.widget.systray(),
-            separator,
             logout_menu_widget(),
-            separator,
             s.mylayoutbox,
         },
     }
