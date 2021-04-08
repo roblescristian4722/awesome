@@ -307,6 +307,8 @@ awful.screen.connect_for_each_screen(function(s)
             separator,
             mytextclock,
             separator,
+            wibox.widget.systray(),
+            separator,
             logout_menu_widget(),
             separator,
             s.mylayoutbox,
