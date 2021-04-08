@@ -139,6 +139,15 @@ local volume = lain.widget.pulse {
     end
 }
 
+-- Lain Battery
+local batwidget = lain.widget.bat({
+  batteries = { "BAT0" },
+  timeout = 5,
+  settings = function()
+     widget:set_text("Battey: " .. bat_now.perc .. "% " .. bat_now.status .. " ")
+  end
+})
+
 -- Clock
 mytextclock = wibox.widget {
     format = "%A %d/%b/%y, %H:%M",
@@ -298,6 +307,8 @@ awful.screen.connect_for_each_screen(function(s)
                     enable_kill_button = true,
                     process_info_max_length = 80
                 }),
+            separator,
+            batwidget,
             separator,
             player_widget,
             separator,
