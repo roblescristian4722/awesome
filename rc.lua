@@ -5,6 +5,10 @@ pcall(require, "luarocks.loader")
 -- vicious
 local vicious = require("vicious")
 
+-- other widgets
+local cpu_widget = require("awesome-wm-widgets.cpu-widget.cpu-widget")
+local logout_menu_widget = require("awesome-wm-widgets.logout-menu-widget.logout-menu")
+
 -- Standard awesome library
 local gears = require("gears")
 local awful = require("awful")
@@ -268,13 +272,19 @@ awful.screen.connect_for_each_screen(function(s)
             separator,
             memwidget,
             separator,
-            cpuwidget,
+            cpu_widget({
+                    color = '#33A5FF',
+                    enable_kill_button = true,
+                    process_info_max_length = 80
+                }),
             separator,
             mykeyboardlayout,
             separator,
             mytextclock,
             separator,
             wibox.widget.systray(),
+            separator,
+            logout_menu_widget(),
             separator,
             s.mylayoutbox,
         },
