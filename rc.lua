@@ -130,17 +130,24 @@ mytextclock = wibox.widget {
 }
 
 -- Memory Widget (vicious)
-    memwidget = wibox.widget.textbox()
-    vicious.cache(vicious.widgets.mem)
-    vicious.register(memwidget, vicious.widgets.mem, "$1 ($2MiB/$3MiB)", 15)
+memwidget = wibox.widget.textbox()
+vicious.cache(vicious.widgets.mem)
+vicious.register(memwidget, vicious.widgets.mem, "Memory: $1% ($2MiB/$3MiB)", 15)
 
--- "Memory: " message
-memMsg = wibox.widget{
-    markup = 'Memory: ',
-    align  = 'center',
-    valign = 'center',
-    widget = wibox.widget.textbox
-}
+-- cpu usage (vicious)
+cpuwidget = awful.widget.graph()
+cpuwidget:set_width(50)
+cpuwidget:set_background_color"#494B4F"
+cpuwidget:set_color{ type = "linear", from = { 0, 0 }, to = { 50, 0 },
+                     stops = { { 0, "#FF5656" },
+                               { 0.5, "#88A175" },
+                               { 1, "#AECF96" } } }
+vicious.register(cpuwidget, vicious.widgets.cpu, "$1", 3)
+
+-- net (vicious)
+netwidget = wibox.widget.textbox()
+vicious.cache(vicious.widgets.net)
+vicious.register(netwidget, vicious.widgets.net, "enp4s0 ${enp4s0 down_kb}kb ↓ ${enp4s0 up_kb}kb ↑", 3)
 
 -- Separator
 separator = wibox.widget {
@@ -251,8 +258,11 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            memMsg,
+            netwidget,
+            separator,
             memwidget,
+            separator,
+            cpuwidget,
             separator,
             mykeyboardlayout,
             separator,
