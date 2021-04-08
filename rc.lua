@@ -8,6 +8,7 @@ local vicious = require("vicious")
 -- other widgets
 local cpu_widget = require("awesome-wm-widgets.cpu-widget.cpu-widget")
 local logout_menu_widget = require("awesome-wm-widgets.logout-menu-widget.logout-menu")
+local lain = require("lain")
 
 -- Standard awesome library
 local gears = require("gears")
@@ -127,6 +128,17 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 -- {{{ Wibar
 -- Create a textclock widget
 
+-- PulseAudio volume (based on multicolor theme)
+local volume = lain.widget.pulse {
+    settings = function()
+        vlevel = "Vol: " .. volume_now.channel[1] ..  "% | " .. volume_now.device
+        if volume_now.muted == "yes" then
+            vlevel = vlevel .. " Muted"
+        end
+        widget:set_markup(lain.util.markup("#33A5FF", vlevel))
+    end
+}
+
 -- Clock
 mytextclock = wibox.widget {
     format = "%A %d/%b/%y, %H:%M",
@@ -164,10 +176,6 @@ separator = wibox.widget {
 -- pkg (vicious)
 pkgwidget = wibox.widget.textbox()
 vicious.register(pkgwidget, vicious.widgets.pkg, "Updates: $1", 3600, "Arch")
-
--- volume (vicious)
-volumewidget = wibox.widget.textbox()
-vicious.register(volumewidget, vicious.widgets.volume, "Vol: ${1}", 15, "Master")
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -283,6 +291,8 @@ awful.screen.connect_for_each_screen(function(s)
                     enable_kill_button = true,
                     process_info_max_length = 80
                 }),
+            separator,
+            volume,
             separator,
             mykeyboardlayout,
             separator,
