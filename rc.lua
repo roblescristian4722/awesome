@@ -163,7 +163,7 @@ separator = wibox.widget {
 
 -- pkg (vicious)
 pkgwidget = wibox.widget.textbox()
-vicious.register(pkgwidget, vicious.widgets.pkg, "Updates: $1", 10800, "Arch")
+vicious.register(pkgwidget, vicious.widgets.pkg, "Updates: $1", 3600, "Arch")
 
 -- volume (vicious)
 volumewidget = wibox.widget.textbox()
