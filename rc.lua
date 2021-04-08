@@ -2,6 +2,9 @@
 -- found (e.g. lgi). If LuaRocks is not installed, do nothing.
 pcall(require, "luarocks.loader")
 
+-- vicious
+local vicious = require("vicious")
+
 -- Standard awesome library
 local gears = require("gears")
 local awful = require("awful")
@@ -119,7 +122,33 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock()
+
+-- Clock
+mytextclock = wibox.widget {
+    format = "%A %d/%b/%y, %H:%M",
+    widget = wibox.widget.textclock
+}
+
+-- Memory Widget (vicious)
+    memwidget = wibox.widget.textbox()
+    vicious.cache(vicious.widgets.mem)
+    vicious.register(memwidget, vicious.widgets.mem, "$1 ($2MiB/$3MiB)", 15)
+
+-- "Memory: " message
+memMsg = wibox.widget{
+    markup = 'Memory: ',
+    align  = 'center',
+    valign = 'center',
+    widget = wibox.widget.textbox
+}
+
+-- Separator
+separator = wibox.widget {
+    widget = wibox.widget.separator,
+    orientation = "vertical",
+    opacity = 0.01,
+    forced_width = 10
+}
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -222,9 +251,15 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
+            memMsg,
+            memwidget,
+            separator,
             mykeyboardlayout,
-            wibox.widget.systray(),
+            separator,
             mytextclock,
+            separator,
+            wibox.widget.systray(),
+            separator,
             s.mylayoutbox,
         },
     }
