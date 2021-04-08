@@ -157,6 +157,10 @@ separator = wibox.widget {
     forced_width = 10
 }
 
+-- pkg (vicious)
+pkgwidget = wibox.widget.textbox()
+vicious.register(pkgwidget, vicious.widgets.pkg, "Updates: $1", 10800, "Arch")
+
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
                     awful.button({ }, 1, function(t) t:view_only() end),
@@ -258,6 +262,8 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
+            pkgwidget,
+            separator,
             netwidget,
             separator,
             memwidget,
