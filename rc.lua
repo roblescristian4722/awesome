@@ -334,6 +334,16 @@ globalkeys = gears.table.join(
               end,
               {description = "restore minimized", group = "client"}),
 
+    -- Mutiedia Keys
+       awful.key({ }, "XF86AudioPause", function () awful.util.spawn("playerctl play-pause") end),
+       awful.key({ }, "XF86AudioPlay", function () awful.util.spawn("playerctl play-pause") end),
+    awful.key({ }, "XF86AudioNext", function () awful.util.spawn("playerctl next") end),
+    awful.key({ }, "XF86AudioPrev", function () awful.util.spawn("playerctl previous") end),
+    awful.key({ }, "XF86AudioRaiseVolume", function () awful.util.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%") end),
+    awful.key({ }, "XF86AudioLowerVolume", function () awful.util.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%") end),
+     awful.key({ }, "XF86AudioMute", function () awful.util.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle") end),
+     awful.key({ }, "XF86AudioMicMute", function () awful.util.spawn("pactl set-source-mute @DEFAULT_SOURCE@ toggle") end),
+
     -- Prompt
     awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,
               {description = "run prompt", group = "launcher"}),
