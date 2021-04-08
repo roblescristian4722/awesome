@@ -177,6 +177,13 @@ separator = wibox.widget {
 pkgwidget = wibox.widget.textbox()
 vicious.register(pkgwidget, vicious.widgets.pkg, "Updates: $1", 3600, "Arch")
 
+-- playerctl
+player_widget = awful.widget.watch("playerctl metadata --format '{{ artist }} - {{ title }}'", 3,
+    function(widget, stdout)
+	    widget:set_markup(stdout:gsub("\n", ""))
+    	widget.align = "center"
+    end)
+
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
                     awful.button({ }, 1, function(t) t:view_only() end),
@@ -291,6 +298,8 @@ awful.screen.connect_for_each_screen(function(s)
                     enable_kill_button = true,
                     process_info_max_length = 80
                 }),
+            separator,
+            player_widget,
             separator,
             volume,
             separator,
