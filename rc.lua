@@ -66,6 +66,7 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
+beautiful.wallpaper = "/mnt/HDD/Wallpapers/blade.runner-1920-874022.jpg"
 
 -- This is used later as the default terminal and editor to run.
 terminal = "gnome-terminal"
@@ -349,7 +350,7 @@ globalkeys = gears.table.join(
               {description = "view next", group = "tag"}),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
-
+    
     awful.key({ "Mod1",           }, "Tab",
         function ()
             awful.client.focus.byidx( 1)
@@ -402,9 +403,9 @@ globalkeys = gears.table.join(
     awful.key({ modkey, "Shift"   }, "q", awesome.quit,
               {description = "quit awesome", group = "awesome"}),
 
-    awful.key({ "Mod1",           }, "ñ",     function () awful.tag.incmwfact( 0.02)          end,
+    awful.key({ "Mod1",           }, "ñ",     function () awful.tag.incmwfact( 0.01)          end,
               {description = "increase master width factor", group = "layout"}),
-    awful.key({ "Mod1",           }, "j",     function () awful.tag.incmwfact(-0.02)          end,
+    awful.key({ "Mod1",           }, "j",     function () awful.tag.incmwfact(-0.01)          end,
               {description = "decrease master width factor", group = "layout"}),
     awful.key({ "Mod1", "Shift"   }, "j",     function () awful.tag.incnmaster( 1, nil, true) end,
               {description = "increase the number of master clients", group = "layout"}),
