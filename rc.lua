@@ -67,9 +67,10 @@ end
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 beautiful.wallpaper = "/mnt/HDD/Wallpapers/blade.runner-1920-874022.jpg"
+beautiful.font = "FontAwesome 9"
 
 -- This is used later as the default terminal and editor to run.
-terminal = "gnome-terminal"
+terminal = "tilix"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -396,7 +397,7 @@ globalkeys = gears.table.join(
         {description = "go back", group = "client"}),
 
     -- Standard program
-    awful.key({ "Mod1",           }, "Return", function () awful.spawn("gnome-terminal") end,
+    awful.key({ "Mod1",           }, "Return", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Shift" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
