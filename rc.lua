@@ -351,7 +351,18 @@ globalkeys = gears.table.join(
               {description = "view next", group = "tag"}),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
+   
+    -- Sepctacle
+    awful.key({}, "Print", function() awful.util.spawn("spectacle") end),
+    awful.key({"Control"}, "Print", function() awful.util.spawn("spectacle -c -b -f") end),
+    awful.key({"Mod1", "Shift"}, "s", function() awful.util.spawn("spectacle -c -b -r") end),
+
+    -- nautilus
+    awful.key({modkey}, "e", function() awful.util.spawn("nautilus") end),
     
+    --brave
+    awful.key({"Control"}, "b", function() awful.util.spawn("brave") end),
+
     awful.key({ "Mod1",           }, "Tab",
         function ()
             awful.client.focus.byidx( 1)
@@ -374,7 +385,7 @@ globalkeys = gears.table.join(
               {description = "show main menu", group = "awesome"}),
 
     -- Screen Lock
-    awful.key({ "Control", "Shift" }, "l", function () awful.spawn("i3lock -t -i /mnt/HDD/Wallpapers/blade_runner_wallpaper_1.png") end),
+    awful.key({ modkey, "Shift" }, "l", function () awful.spawn("i3lock -t -i /mnt/HDD/Wallpapers/blade_runner_wallpaper_1.png") end),
 
     -- Layout manipulation
     awful.key({ "Mod1", "Shift"   }, "l", function () awful.client.swap.byidx(  1)    end,
