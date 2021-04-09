@@ -143,11 +143,12 @@ local volume = lain.widget.pulse {
 
 -- Lain Battery
 local batwidget = lain.widget.bat({
-  batteries = { "BAT0" },
-  timeout = 5,
-  settings = function()
-     widget:set_text("Battey: " .. bat_now.perc .. "% " .. bat_now.status .. " ")
-  end
+    batteries = { "BAT0" },
+    timeout = 5,
+    settings = function()
+        vlevel = "Battery: " .. bat_now.perc .. "% " .. bat_now.status .. " "
+        widget:set_markup(lain.util.markup("#33A5FF", vlevel))
+    end
 })
 
 -- Clock
