@@ -358,9 +358,6 @@ globalkeys = gears.table.join(
     -- nautilus
     awful.key({modkey}, "e", function() awful.util.spawn("nautilus") end),
     
-    --brave
-    awful.key({"Control"}, "b", function() awful.util.spawn("brave") end),
-
     awful.key({ "Mod1",           }, "Tab",
         function ()
             awful.client.focus.byidx( 1)
