@@ -30,9 +30,9 @@ require("awful.hotkeys_popup.keys")
 autorun = true
 autorunApps = 
 {
+    "/usr/lib/polkit-kde-authentication-agent-1",
     "pulseaudio -D",
     "nm-applet",
-    "exec --no-startup-id /usr/lib/polkit-kde-authentication-agent-1",
     "/etc/xdg/awesome/startup.sh",
 }
 if autorun then
