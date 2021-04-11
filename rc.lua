@@ -30,6 +30,9 @@ require("awful.hotkeys_popup.keys")
 autorun = true
 autorunApps = 
 {
+    "pulseaudio -D",
+    "nm-applet",
+    "exec --no-startup-id /usr/lib/polkit-kde-authentication-agent-1",
     "/etc/xdg/awesome/startup.sh",
 }
 if autorun then
@@ -84,11 +87,11 @@ modkey = "Mod4"
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
     awful.layout.suit.tile,
+    awful.layout.suit.tile.bottom,
     awful.layout.suit.floating,
-    awful.layout.suit.max,
     awful.layout.suit.magnifier,
+    --awful.layout.suit.max,
     --awful.layout.suit.tile.left,
-    --awful.layout.suit.tile.bottom,
     --awful.layout.suit.tile.top,
     --awful.layout.suit.fair,
     --awful.layout.suit.fair.horizontal,
@@ -184,10 +187,6 @@ separator = wibox.widget {
     opacity = 0.9,
     forced_width = 10
 }
-
--- pkg (vicious)
-pkgwidget = wibox.widget.textbox()
-vicious.register(pkgwidget, vicious.widgets.pkg, "Updates: $1", 3600, "Arch")
 
 -- playerctl
 player_widget = awful.widget.watch("playerctl metadata --format '{{ artist }} - {{ title }}'", 3,
@@ -299,8 +298,6 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             separator,
-            pkgwidget,
-            separator,
             netwidget,
             separator,
             memwidget,
@@ -356,7 +353,7 @@ globalkeys = gears.table.join(
     -- Sepctacle
     awful.key({}, "Print", function() awful.util.spawn("spectacle") end),
     awful.key({"Control"}, "Print", function() awful.util.spawn("spectacle -c -b -f") end),
-    awful.key({"Mod1", "Shift"}, "s", function() awful.util.spawn("spectacle -c -b -r") end),
+    awful.key({"Control", "Shift"}, "Print", function() awful.util.spawn("spectacle -c -b -r") end),
 
     -- nautilus
     awful.key({modkey}, "e", function() awful.util.spawn("nautilus") end),
