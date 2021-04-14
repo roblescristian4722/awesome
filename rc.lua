@@ -31,6 +31,7 @@ autorun = true
 autorunApps = 
 {
     "/usr/lib/polkit-kde-authentication-agent-1",
+    "pulseaudio -k",
     "pulseaudio -D",
     "nm-applet",
     "/etc/xdg/awesome/startup.sh",
@@ -380,7 +381,7 @@ globalkeys = gears.table.join(
               {description = "show main menu", group = "awesome"}),
 
     -- Screen Lock
-    awful.key({ modkey, "Shift" }, "l", function () awful.spawn("i3lock -t -i /mnt/HDD/Wallpapers/blade_runner_wallpaper_1.png") end),
+    awful.key({ "Control", "Shift" }, "l", function () awful.spawn("i3lock -t -i /mnt/HDD/Wallpapers/blade_runner_wallpaper_1.png") end),
 
     -- Layout manipulation
     awful.key({ "Mod1", "Shift"   }, "l", function () awful.client.swap.byidx(  1)    end,
