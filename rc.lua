@@ -353,14 +353,21 @@ globalkeys = gears.table.join(
               {description = "view next", group = "tag"}),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
-   
+
+      -- Brightness
+
+    awful.key({ }, "XF86MonBrightnessDown", function ()
+        awful.util.spawn("brightnessctl set 10-") end),
+    awful.key({ }, "XF86MonBrightnessUp", function ()
+        awful.util.spawn("brightnessctl set +10") end),
+
     -- Sepctacle
     awful.key({}, "Print", function() awful.util.spawn("spectacle") end),
     awful.key({"Control"}, "Print", function() awful.util.spawn("spectacle -c -b -f") end),
     awful.key({"Control", "Shift"}, "Print", function() awful.util.spawn("spectacle -c -b -r") end),
 
     -- nautilus
-    awful.key({modkey}, "e", function() awful.util.spawn("nautilus") end),
+    awful.key({modkey}, "e", function() awful.util.spawn("thunar") end),
     
     awful.key({ "Mod1",           }, "Tab",
         function ()
