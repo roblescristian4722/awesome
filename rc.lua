@@ -69,7 +69,7 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
-beautiful.wallpaper = "/mnt/HDD/Wallpapers/93239.jpg"
+beautiful.wallpaper = "/mnt/HDD/Wallpapers/874022.jpg"
 beautiful.font = "FontAwesome 9"
 
 -- This is used later as the default terminal and editor to run.
