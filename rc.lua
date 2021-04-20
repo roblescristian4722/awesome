@@ -9,6 +9,7 @@ local vicious = require("vicious")
 local cpu_widget = require("awesome-wm-widgets.cpu-widget.cpu-widget")
 local logout_menu_widget = require("awesome-wm-widgets.logout-menu-widget.logout-menu")
 local lain = require("lain")
+local calendar = require("calendar")
 
 -- Standard awesome library
 local gears = require("gears")
@@ -129,9 +130,6 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- Keyboard map indicator and switcher
 mykeyboardlayout = awful.widget.keyboardlayout()
 
--- {{{ Wibar
--- Create a textclock widget
-
 -- PulseAudio volume (based on multicolor theme)
 local volume = lain.widget.pulse {
     settings = function()
@@ -158,6 +156,8 @@ mytextclock = wibox.widget {
     format = "%A %d/%b/%y, %H:%M",
     widget = wibox.widget.textclock
 }
+-- attach it as popup to your text clock widget:
+calendar({}):attach(mytextclock)
 
 -- Memory Widget (vicious)
 memwidget = wibox.widget.textbox()
@@ -186,10 +186,6 @@ separator = wibox.widget {
     opacity = 0.9,
     forced_width = 10
 }
-
--- pkg (vicious)
-pkgwidget = wibox.widget.textbox()
-vicious.register(pkgwidget, vicious.widgets.pkg, "Updates: $1", 3600, "Arch")
 
 -- playerctl
 player_widget = awful.widget.watch("playerctl metadata --format 'now playing: {{ artist }} - {{ title }}'", 3,
@@ -301,8 +297,6 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             separator,
-            pkgwidget,
-            separator,
             netwidget,
             separator,
             memwidget,
@@ -356,14 +350,11 @@ globalkeys = gears.table.join(
     -- Sepctacle
     awful.key({}, "Print", function() awful.util.spawn("spectacle") end),
     awful.key({"Control"}, "Print", function() awful.util.spawn("spectacle -c -b -f") end),
-    awful.key({"Shift"}, "Print", function() awful.util.spawn("spectacle -c -b -r") end),
+    awful.key({"Control", "Shift"}, "Print", function() awful.util.spawn("spectacle -c -b -r") end),
 
     -- nautilus
     awful.key({modkey}, "e", function() awful.util.spawn("nautilus") end),
     
-    --brave
-    awful.key({"Control"}, "b", function() awful.util.spawn("brave") end),
-
     awful.key({ "Mod1",           }, "Tab",
         function ()
             awful.client.focus.byidx( 1)
