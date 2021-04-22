@@ -71,6 +71,7 @@ end
 beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 beautiful.wallpaper = "/mnt/HDD/Wallpapers/874022.jpg"
 beautiful.font = "FontAwesome 9"
+naughty.config.defaults['icon_size'] = 50
 
 -- This is used later as the default terminal and editor to run.
 terminal = "gnome-terminal"
@@ -347,6 +348,10 @@ globalkeys = gears.table.join(
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
    
+    -- Change PulseAudio default output
+    awful.key({modkey}, ",", function() awful.util.spawn("pactl set-default-sink 0") end),
+    awful.key({modkey}, ".", function() awful.util.spawn("pactl set-default-sink 1") end),
+    
     -- Sepctacle
     awful.key({}, "Print", function() awful.util.spawn("spectacle") end),
     awful.key({"Control"}, "Print", function() awful.util.spawn("spectacle -c -b -f") end),
@@ -355,26 +360,16 @@ globalkeys = gears.table.join(
     -- nautilus
     awful.key({modkey}, "e", function() awful.util.spawn("nautilus") end),
     
-    awful.key({ "Mod1",           }, "Tab",
-        function ()
-            awful.client.focus.byidx( 1)
-        end,
-        {description = "focus next by index", group = "client"}
-    ),
-    awful.key({ "Mod1",           }, "l",
-        function ()
-            awful.client.focus.byidx( 1)
-        end,
-        {description = "focus next by index", group = "client"}
-    ),
-    awful.key({ "Mod1",           }, "k",
-        function ()
-            awful.client.focus.byidx(-1)
-        end,
-        {description = "focus previous by index", group = "client"}
-    ),
+    awful.key({ "Mod1", "Shift" }, "Tab", function () awful.client.focus.byidx(-1) end,
+    {description = "focus prev by index", group = "client"}),
+    awful.key({ "Mod1", }, "Tab", function () awful.client.focus.byidx(1) end,
+    {description = "focus next by index", group = "client"}),
+    awful.key({ "Mod1", }, "l", function () awful.client.focus.byidx( 1) end,
+    {description = "focus next by index", group = "client"}),
+    awful.key({ "Mod1", }, "k", function () awful.client.focus.byidx(-1) end,
+    {description = "focus previous by index", group = "client"}),
     awful.key({ "Mod1",           }, "w", function () mymainmenu:show() end,
-              {description = "show main menu", group = "awesome"}),
+    {description = "show main menu", group = "awesome"}),
 
     -- Screen Lock
     awful.key({ "Control", "Shift" }, "l", function () awful.spawn("i3lock -t -i /mnt/HDD/Wallpapers/blade_runner_lock.png") end),
