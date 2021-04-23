@@ -9,6 +9,7 @@ local vicious = require("vicious")
 local cpu_widget = require("awesome-wm-widgets.cpu-widget.cpu-widget")
 local logout_menu_widget = require("awesome-wm-widgets.logout-menu-widget.logout-menu")
 local lain = require("lain")
+local calendar = require("calendar")
 
 -- Standard awesome library
 local gears = require("gears")
@@ -34,10 +35,9 @@ autorunApps =
     "/usr/lib/polkit-kde-authentication-agent-1",
     "xinput set-prop \"SynPS/2 Synaptics TouchPad\" \"libinput Tapping Enabled\" 1",
     "xinput set-prop \"SynPS/2 Synaptics TouchPad\" \"libinput Natural Scrolling Enabled\" 1",
-    "pulseaudio -k",
     "pulseaudio -D",
-    "nm-applet",
     "picom -b",
+    "nm-applet",
 }
 if autorun then
     for app = 1, #autorunApps do
@@ -75,9 +75,10 @@ end
 beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 beautiful.wallpaper = "/mnt/HDD/Wallpapers/blade.runner-1920-874022.jpg"
 beautiful.font = "FontAwesome 9"
+naughty.config.defaults['icon_size'] = 100
 
 -- This is used later as the default terminal and editor to run.
-terminal = "xfce4-terminal"
+terminal = "gnome-terminal"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -139,6 +140,7 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- PulseAudio volume (based on multicolor theme)
 local volume = lain.widget.pulse {
+    timeout = 1,
     settings = function()
         vlevel = "Vol: " .. volume_now.channel[1] ..  "%"
         if volume_now.muted == "yes" then
@@ -163,6 +165,9 @@ mytextclock = wibox.widget {
     format = "%A %d/%b/%y, %H:%M",
     widget = wibox.widget.textclock
 }
+
+-- attach it as popup to your text clock widget:
+calendar({}):attach(mytextclock)
 
 -- Memory Widget (vicious)
 memwidget = wibox.widget.textbox()
@@ -357,9 +362,9 @@ globalkeys = gears.table.join(
       -- Brightness
 
     awful.key({ }, "XF86MonBrightnessDown", function ()
-        awful.util.spawn("brightnessctl set 10-") end),
+        awful.util.spawn("brightnessctl set 50-") end),
     awful.key({ }, "XF86MonBrightnessUp", function ()
-        awful.util.spawn("brightnessctl set +10") end),
+        awful.util.spawn("brightnessctl set +50") end),
 
     -- Sepctacle
     awful.key({}, "Print", function() awful.util.spawn("spectacle") end),

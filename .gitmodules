@@ -7,3 +7,6 @@
 [submodule "lain"]
 	path = lain
 	url = https://github.com/lcpz/lain
+[submodule "calendar"]
+	path = calendar
+	url = https://github.com/deficient/calendar
