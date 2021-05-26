@@ -76,6 +76,7 @@ beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 beautiful.wallpaper = "/mnt/HDD/Wallpapers/874022.jpg"
 beautiful.font = "FontAwesome 9"
 naughty.config.defaults['icon_size'] = 50
+beautiful.useless_gap = 5;
 
 -- This is used later as the default terminal and editor to run.
 terminal = "gnome-terminal"
@@ -375,9 +376,61 @@ globalkeys = gears.table.join(
     awful.key({ "Mod1",           }, "w", function () mymainmenu:show() end,
     {description = "show main menu", group = "awesome"}),
 
+    -- modkey+Shift+Left/Right: move client to prev/next tag
+    awful.key({ modkey, "Shift" }, "k",
+        function ()
+            -- get current tag
+            local t = client.focus and client.focus.first_tag or nil
+            if t == nil then
+                return
+            end
+            -- get previous tag (modulo 9 excluding 0 to wrap from 1 to 9)
+            local tag = client.focus.screen.tags[(t.name - 2) % 9 + 1]
+            awful.client.movetotag(tag)
+        end,
+            {description = "move client to previous tag", group = "layout"}),
+    awful.key({ modkey, "Shift" }, "l",
+        function ()
+            -- get current tag
+            local t = client.focus and client.focus.first_tag or nil
+            if t == nil then
+                return
+            end
+            -- get next tag (modulo 9 excluding 0 to wrap from 9 to 1)
+            local tag = client.focus.screen.tags[(t.name % 9) + 1]
+            awful.client.movetotag(tag)
+        end,
+            {description = "move client to next tag", group = "layout"}),
+
+
+    -- modkey+Shift+Left/Right: move client to prev/next tag
+    awful.key({ modkey, "Shift" }, "Left",
+        function ()
+            -- get current tag
+            local t = client.focus and client.focus.first_tag or nil
+            if t == nil then
+                return
+            end
+            -- get previous tag (modulo 9 excluding 0 to wrap from 1 to 9)
+            local tag = client.focus.screen.tags[(t.name - 2) % 9 + 1]
+            awful.client.movetotag(tag)
+        end,
+            {description = "move client to previous tag", group = "layout"}),
+    awful.key({ modkey, "Shift" }, "Right",
+        function ()
+            -- get current tag
+            local t = client.focus and client.focus.first_tag or nil
+            if t == nil then
+                return
+            end
+            -- get next tag (modulo 9 excluding 0 to wrap from 9 to 1)
+            local tag = client.focus.screen.tags[(t.name % 9) + 1]
+            awful.client.movetotag(tag)
+        end,
+            {description = "move client to next tag", group = "layout"}),
+
     -- Screen Lock
     awful.key({ "Control", "Shift" }, "l", function () awful.spawn("i3lock -t -i /mnt/HDD/Wallpapers/blade_runner_lock.png") end),
-
     -- Layout manipulation
     awful.key({ "Mod1", "Shift"   }, "l", function () awful.client.swap.byidx(  1)    end,
               {description = "swap with next client by index", group = "client"}),
