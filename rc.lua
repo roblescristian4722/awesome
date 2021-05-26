@@ -33,7 +33,11 @@ autorunApps =
 {
     "nm-applet",
     "/usr/lib/polkit-kde-authentication-agent-1",
-    "/etc/xdg/awesome/startup.sh",
+    "setxkbmap -layout latam",
+    "xinput set-prop \"SynPS/2 Synaptics TouchPad\" \"libinput Tapping Enabled\" 1",
+    "xinput set-prop \"SynPS/2 Synaptics TouchPad\" \"libinput Natural Scrolling Enabled\" 1",
+    "pulseaudio -D",
+    "picom -b"
 }
 if autorun then
    for app = 1, #autorunApps do
