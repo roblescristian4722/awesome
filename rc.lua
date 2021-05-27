@@ -138,6 +138,7 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- PulseAudio volume (based on multicolor theme)
 local volume = lain.widget.pulse {
+    timeout = 1,
     settings = function()
         vlevel = "Vol: " .. volume_now.channel[1] .. "% | " .. volume_now.device
         if volume_now.muted == "yes" then
@@ -330,9 +331,9 @@ end)
 
 -- {{{ Mouse bindings
 root.buttons(gears.table.join(
-    awful.button({ }, 3, function () mymainmenu:toggle() end),
-    awful.button({ }, 4, awful.tag.viewnext),
-    awful.button({ }, 5, awful.tag.viewprev)
+    awful.button({ }, 3, function () mymainmenu:toggle() end)
+    -- awful.button({ }, 4, awful.tag.viewnext),
+    -- awful.button({ }, 5, awful.tag.viewprev)
 ))
 -- }}}
 
