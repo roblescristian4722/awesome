@@ -76,7 +76,7 @@ beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 beautiful.wallpaper = "/mnt/HDD/Wallpapers/874022.jpg"
 beautiful.font = "FontAwesome 9"
 naughty.config.defaults['icon_size'] = 50
-beautiful.useless_gap = 5;
+-- beautiful.useless_gap = 5;
 
 -- This is used later as the default terminal and editor to run.
 terminal = "gnome-terminal"
@@ -94,8 +94,8 @@ modkey = "Mod4"
 awful.layout.layouts = {
     awful.layout.suit.tile,
     awful.layout.suit.tile.bottom,
-    awful.layout.suit.floating,
-    awful.layout.suit.magnifier,
+    -- awful.layout.suit.floating,
+    -- awful.layout.suit.magnifier,
     --awful.layout.suit.max,
     --awful.layout.suit.tile.left,
     --awful.layout.suit.tile.top,
@@ -355,8 +355,8 @@ globalkeys = gears.table.join(
               {description = "go back", group = "tag"}),
    
     -- Change PulseAudio default output
-    awful.key({modkey}, ",", function() awful.util.spawn("pactl set-default-sink 0") end),
-    awful.key({modkey}, ".", function() awful.util.spawn("pactl set-default-sink 1") end),
+    awful.key({modkey}, ",", function() awful.util.spawn("pactl set-default-sink alsa_output.pci-0000_09_00.3.analog-stereo") end),
+    awful.key({modkey}, ".", function() awful.util.spawn("pactl set-default-sink alsa_output.pci-0000_07_00.1.hdmi-stereo-extra1") end),
     
     -- Sepctacle
     awful.key({}, "Print", function() awful.util.spawn("spectacle") end),
